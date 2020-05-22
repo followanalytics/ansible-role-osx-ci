@@ -56,11 +56,22 @@
   loop: "{{ homebrew_packages }}"
   when: homebrew_packages is defined
 
+- name: Adding to Path the new ruby installation
+  lineinfile:
+    path: "/Users/{{ ansible_user }}/.profile"
+    regexp: 'export PATH'
+    insertafter: 'EOF'
+    line: 'export PATH="/usr/local/opt/ruby/bin:$PATH"'
+
 - name: Installing global gems
   gem:
     name: "{{ item }}"
     user_install: false
   loop: "{{ ruby_gems }}"
+  environment:
+    LDFLAGS: "-L/usr/local/opt/ruby/lib"
+    CPPFLAGS: "-I/usr/local/opt/ruby/include"
+    PKG_CONFIG_PATH: "/usr/local/opt/ruby/lib/pkgconfig"
   become: true
 
 - name: Installing node 10 LTS
