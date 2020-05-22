@@ -69,7 +69,8 @@
     user_install: false
   loop: "{{ ruby_gems }}"
   environment:
-    PATH: "/usr/local/opt/ruby/bin:/Library/Developer/CommandLineTools/usr/bin:$PATH"
+    PATH: "/usr/local/opt/ruby/bin:$PATH"
+    MACOSX_DEPLOYMENT_TARGET: 11.3.1
   become: true
 
 - name: Installing node 10 LTS
