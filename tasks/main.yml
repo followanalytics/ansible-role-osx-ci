@@ -67,6 +67,7 @@
   gem:
     name: "{{ item }}"
     user_install: false
+    executable: "/usr/local/opt/ruby/bin/gem"
   loop: "{{ ruby_gems }}"
   environment:
     PATH: "/usr/local/opt/ruby/bin:$PATH"
