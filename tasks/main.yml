@@ -64,14 +64,22 @@
 #    line: 'export PATH=""'
 
 - name: Installing global gems
-  gem:
-    name: "{{ item }}"
-    user_install: false
+  command:
+    cmd: "gem install {{ item }}"
   loop: "{{ ruby_gems }}"
   environment:
     PATH: "/usr/local/opt/ruby/bin:$PATH"
-    MACOSX_DEPLOYMENT_TARGET: 11.3.1
   become: true
+
+#- name: Installing global gems
+#  gem:
+#    name: "{{ item }}"
+#    user_install: false
+#  loop: "{{ ruby_gems }}"
+#  environment:
+#    PATH: "/usr/local/opt/ruby/bin:$PATH"
+#    MACOSX_DEPLOYMENT_TARGET: 11.3.1
+#  become: true
 
 - name: Installing node 10 LTS
   homebrew:
