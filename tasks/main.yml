@@ -69,7 +69,7 @@
     user_install: false
   loop: "{{ ruby_gems }}"
   environment:
-    PATH: "/usr/local/opt/ruby/bin:$PATH"
+    PATH: "/usr/local/opt/ruby/bin:/Library/Developer/CommandLineTools/bin:$PATH"
   become: true
 
 - name: Installing node 10 LTS
