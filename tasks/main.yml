@@ -45,23 +45,25 @@
     name: homebrew/cask-versions
 
 - name: Installing homebrew cask packages
-  x_homebrew_cask:
+  homebrew_cask:
     name: "{{ item }}"
     sudo_password: "{{ ansible_become_pass }}"
-  with_items: "{{ cask_packages }}"
+  loop: "{{ cask_packages }}"
+
+- name: Installing homebrew packages
+  homebrew:
+    name: "{{ item }}"
+  loop: "{{ homebrew_packages }}"
+  when: homebrew_packages is defined
 
 - name: Installing global gems
   gem:
     name: "{{ item }}"
     user_install: false
-  with_items: "{{ ruby_gems }}"
+  loop: "{{ ruby_gems }}"
+  environment:
+    PATH: "/usr/local/bin:/usr/local/opt/ruby/bin:/usr/bin:/bin:/usr/sbin:/sbin"
   become: true
-
-- name: Installing homebrew packages
-  homebrew:
-    name: "{{ item }}"
-  with_items: "{{ homebrew_packages }}"
-  when: homebrew_packages is defined
 
 - name: Installing node 10 LTS
   homebrew:
