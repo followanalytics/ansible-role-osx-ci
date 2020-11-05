@@ -32,7 +32,7 @@
 - name: Installing homebrew
   script: >
     homebrew.sh {{ ansible_become_user | default(ansible_ssh_user) }}
-    {{ ansible_become_pass }}
+    "{{ ansible_become_pass }}"
   args:
     creates: '/usr/local/bin/brew'
 
